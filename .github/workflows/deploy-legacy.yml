@@ -7,10 +7,8 @@ on:
         description: 'tags to create build'  
 
 jobs:
-
   api:
     name: API (Legacy)
-    needs: [setup-jobs]
     runs-on: ubuntu-22.04
     permissions:
       deployments: write
