@@ -35,12 +35,13 @@ jobs:
           set -e
           echo -e '\nLOG:Building...'
           pnpm i -g verdaccio
-          verdaccio
-          NPM_CONFIG_REGISTRY=http://localhost:4873 pnpm install
-          pnpm prebuild
-          pnpm build:curriculum
-          pnpm build:server
-          echo -e '\nLOG:Build completed.'
+          verdaccio & (
+            NPM_CONFIG_REGISTRY=http://localhost:4873 pnpm install && \
+            pnpm prebuild && \
+            pnpm build:curriculum && \
+            pnpm build:server && \
+            echo -e '\nLOG:Build completed.'
+          )
 
       - name: Archive Release packages
         shell: bash
@@ -55,5 +56,4 @@ jobs:
             *.tar.gz.*
             verdaccio-packages*
           tag_name: ${{ github.event.inputs.tags }}
-
 
