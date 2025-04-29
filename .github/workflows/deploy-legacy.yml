@@ -36,7 +36,8 @@ jobs:
           echo -e '\nLOG:Building...'
           pnpm i -g verdaccio
           verdaccio & ( \
-            NPM_CONFIG_REGISTRY=http://localhost:4873 pnpm install && \
+            export NPM_CONFIG_REGISTRY=http://localhost:4873 && \
+            pnpm install && \
             pnpm prebuild && \
             pnpm build:curriculum && \
             pnpm build:server && \
