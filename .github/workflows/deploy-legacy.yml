@@ -24,30 +24,23 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20.18.0'
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
       
       - name: Deploy API
         # [NOTE] Use backslashes for expansion on remote machine, example: \$NVM_DIR, etc.
         run: |
           set -e
-          echo -e '\nLOG:Deploying API (Legacy)...'
-
-          echo -e '\nLOG:Environment setup...'
-          echo -e '\nLOG:Checking Node.js version...'
-
-          node --version
-          echo -e '\nLOG:Git operations...'
-
           echo -e '\nLOG:Building...'
-          npm i -g pnpm@9
           pnpm i -g verdaccio
           verdaccio
           NPM_CONFIG_REGISTRY=http://localhost:4873 pnpm install
           pnpm prebuild
           pnpm build:curriculum
           pnpm build:server
-          
           echo -e '\nLOG:Build completed.'
-
 
       - name: Archive Release packages
         shell: bash
