@@ -10,9 +10,7 @@ jobs:
   api:
     name: API (Legacy)
     runs-on: ubuntu-22.04
-    permissions:
-      deployments: write
-      contents: read
+    permissions: write-all
     environment:
       name: prod-api-legacy
     steps:
